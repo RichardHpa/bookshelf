@@ -8,33 +8,37 @@ import {Input, BookListUL, Spinner} from './components/lib'
 import {BookRow} from './components/book-row'
 import {client} from './utils/api-client'
 import * as colors from './styles/colors'
+import {useAsync} from './utils/hooks'
 
 function DiscoverBooksScreen() {
-  const [status, setStatus] = React.useState('idle')
-  const [data, setData] = React.useState([])
+  // const [status, setStatus] = React.useState('idle')
+  // const [data, setData] = React.useState([])
   const [queried, setQueried] = React.useState(false)
   const [query, setQuery] = React.useState('')
-  const [error, setError] = React.useState(null)
+  // const [error, setError] = React.useState(null)
+  const {data, error, run, isLoading, isError, isSuccess} = useAsync()
 
   React.useEffect(() => {
     if (!queried) {
       return
     }
-    setStatus('loading')
-    client(`books?query=${encodeURIComponent(query)}`)
-      .then(responseData => {
-        setData(responseData)
-        setStatus('success')
-      })
-      .catch(error => {
-        setError(error)
-        setStatus('error')
-      })
-  }, [queried, query])
+    // setStatus('loading')
+    // client(`books?query=${encodeURIComponent(query)}`)
+    //   .then(responseData => {
+    //     setData(responseData)
+    //     setStatus('success')
+    //   })
+    //   .catch(error => {
+    //     setError(error)
+    //     setStatus('error')
+    //   })
+    run(client(`books?query=${encodeURIComponent(query)}`))
+    // }, [queried, query])
+  }, [queried, query, run])
 
-  const isLoading = status === 'loading'
-  const isSuccess = status === 'success'
-  const isError = status === 'error'
+  // const isLoading = status === 'loading'
+  // const isSuccess = status === 'success'
+  // const isError = status === 'error'
 
   function handleSearchSubmit(event) {
     event.preventDefault()
