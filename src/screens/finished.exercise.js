@@ -1,10 +1,8 @@
 import * as React from 'react'
 import {Link} from 'components/lib'
 import {ListItemList} from 'components/list-item-list'
-import {AuthContext} from 'context/auth-context'
 
 function FinishedScreen() {
-  const {user} = React.useContext(AuthContext)
   return (
     <ListItemList
       filterListItems={li => Boolean(li.finishDate)}

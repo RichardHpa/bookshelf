@@ -14,7 +14,7 @@ import * as colors from 'styles/colors'
 import {Spinner, Textarea, ErrorMessage} from 'components/lib'
 import {Rating} from 'components/rating'
 import {StatusButtons} from 'components/status-buttons'
-import {AuthContext} from 'context/auth-context.exercise'
+import {useAuth} from 'context/auth-context.exercise'
 
 function BookScreen({user}) {
   const {bookId} = useParams()
@@ -99,7 +99,7 @@ function ListItemTimeframe({listItem}) {
 }
 
 function NotesTextarea({listItem}) {
-  const {user} = React.useContext(AuthContext)
+  const {user} = useAuth()
   const [mutate, {error, isError, isLoading}] = useUpdateListItem(user)
   const debouncedMutate = React.useMemo(
     () => debounceFn(mutate, {wait: 300}),

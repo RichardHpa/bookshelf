@@ -6,7 +6,7 @@ import {useUpdateListItem} from 'utils/list-items'
 import {FaStar} from 'react-icons/fa'
 import * as colors from 'styles/colors'
 import {ErrorMessage} from 'components/lib'
-import {AuthContext} from 'context/auth-context'
+import {useAuth} from 'context/auth-context'
 
 const visuallyHiddenCSS = {
   border: '0',
@@ -20,7 +20,7 @@ const visuallyHiddenCSS = {
 }
 function Rating({listItem}) {
   const [isTabbing, setIsTabbing] = React.useState(false)
-  const {user} = React.useContext(AuthContext)
+  const {user} = useAuth()
   const [update, {error, isError}] = useUpdateListItem(user)
 
   React.useEffect(() => {
