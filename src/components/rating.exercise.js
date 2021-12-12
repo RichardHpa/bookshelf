@@ -6,6 +6,7 @@ import {useUpdateListItem} from 'utils/list-items'
 import {FaStar} from 'react-icons/fa'
 import * as colors from 'styles/colors'
 import {ErrorMessage} from 'components/lib'
+import {AuthContext} from 'context/auth-context'
 
 const visuallyHiddenCSS = {
   border: '0',
@@ -17,10 +18,9 @@ const visuallyHiddenCSS = {
   position: 'absolute',
   width: '1px',
 }
-// 💣 remove the user prop
-function Rating({listItem, user}) {
+function Rating({listItem}) {
   const [isTabbing, setIsTabbing] = React.useState(false)
-  // 💣 we no longer need to pass the user here:
+  const {user} = React.useContext(AuthContext)
   const [update, {error, isError}] = useUpdateListItem(user)
 
   React.useEffect(() => {

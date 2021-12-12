@@ -20,6 +20,7 @@ import {
 import * as colors from 'styles/colors'
 import {useAsync} from 'utils/hooks'
 import {CircleButton, Spinner} from './lib'
+import {AuthContext} from 'context/auth-context'
 
 function TooltipButton({label, highlight, onClick, icon, ...rest}) {
   const {isLoading, isError, error, run} = useAsync()
@@ -52,9 +53,8 @@ function TooltipButton({label, highlight, onClick, icon, ...rest}) {
   )
 }
 
-// 💣 remove user from the props
-function StatusButtons({user, book}) {
-  // 💣 remove the user from all these function calls
+function StatusButtons({book}) {
+  const {user} = React.useContext(AuthContext)
   const listItem = useListItem(book.id, user)
   const [update] = useUpdateListItem(user, {throwOnError: true})
   const [remove] = useRemoveListItem(user, {throwOnError: true})
